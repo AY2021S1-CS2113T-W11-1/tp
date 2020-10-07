@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.time.LocalTime;
 
 public class Slot {
-    
+
     public static final String MON = "Monday";
     public static final String TUE = "Tuesday";
     public static final String WED = "Wednesday";
@@ -76,7 +76,7 @@ public class Slot {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format(startTime.toString() + "-" + endTime.toString() + " " + title);
     }
 }
