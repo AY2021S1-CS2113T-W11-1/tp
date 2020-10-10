@@ -46,7 +46,8 @@ public class SlotList extends ItemList {
         try {
             slots.add(Slot.initSlot(line));
         } catch (IndexOutOfBoundsException e) {
-            // Invalid task data, skips to the next entry
+            // TODO: to be fixed
+            System.out.println("Error");
         }
     }
     
