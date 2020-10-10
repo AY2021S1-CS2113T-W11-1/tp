@@ -1,13 +1,11 @@
 package seedu.duke;
 
-
-import seedu.duke.command.DeleteBookmarkCommand;
-import seedu.duke.command.ListCommand;
-import seedu.duke.command.LaunchBookmarkCommand;
 import seedu.duke.command.AddBookmarkCommand;
-
 import seedu.duke.command.Command;
+import seedu.duke.command.DeleteBookmarkCommand;
 import seedu.duke.command.ExitCommand;
+import seedu.duke.command.LaunchBookmarkCommand;
+import seedu.duke.command.ListCommand;
 
 import seedu.duke.exception.DukeException;
 import seedu.duke.exception.DukeExceptionType;
@@ -43,6 +41,7 @@ public class Parser {
             command = new AddBookmarkCommand(input);
         } else if (input.startsWith(LaunchBookmarkCommand.LAUNCH_KW)) {
             command = new LaunchBookmarkCommand(input);
+
         } else {
             throw new DukeException(DukeExceptionType.UNKNOWN_INPUT);
         }

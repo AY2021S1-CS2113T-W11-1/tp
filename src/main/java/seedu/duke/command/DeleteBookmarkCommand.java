@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.ItemList;
 import seedu.duke.Storage;
 import seedu.duke.Ui;
 import seedu.duke.bookmark.Bookmark;
@@ -34,12 +35,13 @@ public class DeleteBookmarkCommand extends Command {
     /**
      * Deletes the bookmark in the bookmark list.
      *
-     * @param bookmarks The list of bookmarks.
+     * @param items The list of bookmarks.
      * @param ui The user interface.
      * @param storage The storage for saving and loading.
      */
     @Override
-    public void execute(BookmarkList bookmarks, Ui ui, Storage storage) throws DukeException {
+    public void execute(ItemList items, Ui ui, Storage storage) throws DukeException {
+        BookmarkList bookmarks = (BookmarkList) items;
         try {
             Bookmark bookmark = bookmarks.getBookmark(index);
             bookmarks.deleteBookmark(bookmarks.getBookmark(index));

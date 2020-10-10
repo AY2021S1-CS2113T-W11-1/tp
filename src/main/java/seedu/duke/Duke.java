@@ -1,37 +1,43 @@
 package seedu.duke;
 
 import seedu.duke.bookmark.BookmarkList;
+import seedu.duke.slot.SlotList;
 import seedu.duke.command.Command;
 import seedu.duke.exception.DukeException;
 
 public class Duke {
 
-    private Storage storage;
+    private Storage bookmarkStorage;
+    private Storage slotStorage;
     private BookmarkList bookmarks;
+    private SlotList slots;
     private Ui ui;
 
     /**
      * Constructs a new Duke instance.
      * Pass the filepath of the txt file to set up storage.
      *
-     * @param filePath The filepath of the txt file.
+     * @param bookmarkFilePath The filepath of the bookmark txt file.
+     * @param slotFilePath The filepath of the slot txt file.
      */
-    public Duke(String filePath) {
+    public Duke(String bookmarkFilePath, String slotFilePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        bookmarkStorage = new Storage(bookmarkFilePath);
+        slotStorage = new Storage(slotFilePath);
+
         try {
-            bookmarks = new BookmarkList(storage.load());
+            bookmarks = new BookmarkList(bookmarkStorage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             bookmarks = new BookmarkList();
         }
-        //try {
-        //    load timetable here
-        //    if use another text file to save timetable, then pass another filepath to Duke constructor
-        //    and create another Storage object
-        //} catch (DukeException e) {
 
-        //}
+        try {
+            slots = new SlotList(slotStorage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            slots = new SlotList();
+        }
     }
 
     /**
@@ -46,7 +52,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(bookmarks, ui, storage);
+                c.execute(bookmarks, ui, bookmarkStorage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showErrorMessage(e);
@@ -60,6 +66,6 @@ public class Duke {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Duke("./data/data.txt").run();
+        new Duke("./data/data.txt", "./data/slot.txt").run();
     }
 }

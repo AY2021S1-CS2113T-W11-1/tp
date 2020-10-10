@@ -1,5 +1,6 @@
 package seedu.duke.command;
 
+import seedu.duke.ItemList;
 import seedu.duke.Storage;
 import seedu.duke.Ui;
 import seedu.duke.bookmark.Bookmark;
@@ -33,12 +34,13 @@ public class AddBookmarkCommand extends Command {
     /**
      * Adds the bookmark to the bookmark list and saves the bookmarks list in the text file.
      *
-     * @param bookmarks The list of bookmarks.
+     * @param items The list of bookmarks.
      * @param ui The user interface.
      * @param storage The storage for saving and loading.
      */
     @Override
-    public void execute(BookmarkList bookmarks, Ui ui, Storage storage) {
+    public void execute(ItemList items, Ui ui, Storage storage) {
+        BookmarkList bookmarks = (BookmarkList) items;
         Bookmark bookmark = new Bookmark(module, description, url);
         bookmarks.addBookmark(bookmark);
         ui.print("Added bookmark: " + "[" + module + "] "

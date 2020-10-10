@@ -119,4 +119,12 @@ public class Ui {
     private void printUnknownInputMessage() {
         print("Unknown input\n");
     }
+
+    private void printInvalidSlotInput() {
+        print("Invalid slot input\n");
+    }
+
+    private void printInvalidTimeFormat() {
+        print("Invalid time format\n");
+    }
 }
