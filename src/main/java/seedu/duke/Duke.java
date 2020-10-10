@@ -35,7 +35,6 @@ public class Duke {
         try {
             slots = new SlotList(slotStorage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
             slots = new SlotList();
         }
     }
