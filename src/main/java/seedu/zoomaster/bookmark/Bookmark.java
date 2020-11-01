@@ -49,7 +49,7 @@ public class Bookmark {
         return descriptionUrl;
     }
 
-    private static Boolean isUrlValid(String url) {
+    public static Boolean isUrlValid(String url) {
         if (url.contains(" ")) {
             return false;
         }

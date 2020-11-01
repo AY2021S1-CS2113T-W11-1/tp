@@ -48,6 +48,7 @@ public class Storage<T> {
      */
     public Storage(String path, Class<T> storageClass) {
         this.filePath = path.replace('/', File.separatorChar);
+        this.filePath = path.replace("./", File.separator);
         this.storageClass = storageClass;
     }
 

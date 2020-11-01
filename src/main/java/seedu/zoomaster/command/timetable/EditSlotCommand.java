@@ -34,13 +34,12 @@ public class EditSlotCommand extends Command {
         }
 
         Pattern parser = Pattern.compile(
-                "(?<fieldToEdit>[a-zA-Z]+) (?<details>.+)"
+                "(?<fieldToEdit>[a-zA-Z]+)\\s+(?<details>.+)"
         );
         Matcher matcher = parser.matcher(details);
 
         if (!matcher.matches()) {
-            // TODO: Make new exception type for this
-            throw new ZoomasterException(ZoomasterExceptionType.INVALID_SLOT_INPUT);
+            throw new ZoomasterException(ZoomasterExceptionType.INVALID_EDIT_INPUT);
         }
 
         fieldToEdit = matcher.group("fieldToEdit");
@@ -50,18 +49,18 @@ public class EditSlotCommand extends Command {
     @Override
     public void execute(BookmarkList bookmarks, Timetable timetable, Ui ui) throws ZoomasterException {
         Pattern parser = Pattern.compile(
-                "(?<day>[a-zA-Z]+) (?<indexInDay>\\d+) (?<firstArgument>\\w+)"
-                + "( (?<startTime>[\\w:]+) (?<endTime>[\\w:]+))?"
+                "(?<day>[a-zA-Z]+)\\s+(?<indexInDay>\\d+)\\s+(?<firstArgument>\\w+)"
+                + "(\\s+(?<startTime>[\\w:]+)\\s+(?<endTime>[\\w:]+))?"
         );
         Matcher matcher = parser.matcher(details);
 
         if (!matcher.matches()) {
-            throw new ZoomasterException(ZoomasterExceptionType.INVALID_SLOT_INPUT);
+            throw new ZoomasterException(ZoomasterExceptionType.INVALID_EDIT_INPUT);
         }
 
         String day = matcher.group("day");
         int indexInDay = Integer.parseInt(matcher.group("indexInDay"));
-        Slot slot = timetable.getSlotByIndexInDay(day, indexInDay);
+        Slot slot;
 
         String message = "";
 
@@ -71,10 +70,12 @@ public class EditSlotCommand extends Command {
             message = "Slot moved to " + matcher.group("firstArgument").toUpperCase();
             break;
         case FIELD_KW_TITLE:
+            slot = timetable.getSlotByIndexInDay(day, indexInDay);
             slot.setTitle(matcher.group("firstArgument"));
             message = "Slot title changed to " + matcher.group("firstArgument");
             break;
         case FIELD_KW_TIME:
+            slot = timetable.getSlotByIndexInDay(day, indexInDay);
             message = changeSlotTime(
                     slot,
                     matcher.group("firstArgument"),

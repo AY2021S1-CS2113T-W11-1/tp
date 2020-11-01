@@ -193,6 +193,9 @@ public class Ui {
         case INVALID_ADD_BOOKMARK_INPUT:
             printInvalidAddBookmarkInputMessage();
             break;
+        case EMPTY_BOOKMARK_LIST:
+            printEmptyBookmarkListMessage();
+            break;
         case EMPTY_DESCRIPTION:
             printEmptyBookmarkDescriptionMessage();
             break;
@@ -226,6 +229,9 @@ public class Ui {
         case INVALID_SLOT_INPUT:
             printInvalidSlotInput();
             break;
+        case INVALID_EDIT_INPUT:
+            printInvalidEditInput();
+            break;
         case INVALID_TIMETABLE_DAY:
             printUnknownDayMessage();
             break;
@@ -242,6 +248,10 @@ public class Ui {
             // unable to get dukeExceptionType
             break;
         }
+    }
+
+    private void printEmptyBookmarkListMessage() {
+        printRedWithBorder("Bookmark list is empty!" + NEW_LINE);
     }
 
     private void printInvalidSlotNumber(String index) {
@@ -282,7 +292,7 @@ public class Ui {
     }
 
     private void printInvalidUrl() {
-        printRedWithBorder("Invalid URL" + NEW_LINE + "URL must start with either 'www.'. 'http://'"
+        printRedWithBorder("Invalid URL" + NEW_LINE + "URL must start with either 'www.', 'http://'"
                 + " or 'https://' and have no spaces" + NEW_LINE);
     }
 
@@ -345,7 +355,7 @@ public class Ui {
     public void printHelpMessage(String input) {
         assert (Parser.programMode >= 0) && (Parser.programMode <= 3) : "only modes of Zoomaster are 0, 1, 2, 3";
         if (input.equals(ClearCommand.CLEAR_KW)) {
-            printYellowWithBorder("Clears the command line screen" + NEW_LINE);
+            printYellowWithBorder("Clears the visible command line screen" + NEW_LINE);
         } else if (input.equals(ExitCommand.EXIT_KW)) {
             printYellowWithBorder("Exits the application. What else did you expect ^_^" + NEW_LINE);
         } else if (input.equals(ChangeModeCommand.MODE_KW)) {
@@ -543,6 +553,11 @@ public class Ui {
 
     private void printInvalidSlotInput() {
         printRedWithBorder("Invalid slot input" + NEW_LINE);
+    }
+
+    private void printInvalidEditInput() {
+        printRedWithBorder("Invalid edit format" + NEW_LINE
+        + "Enter \"help edit\" for the correct format." + NEW_LINE);
     }
 
     private void printInvalidTimeFormat() {

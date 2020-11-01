@@ -179,8 +179,9 @@ public class AddSlotCommand extends Command {
     }
 
     private void createBookmark(String url, String lesson, Slot newSlot) throws ZoomasterException {
-        if (!url.startsWith("www.") && !url.startsWith("https://")) {
-            throw new ZoomasterException(ZoomasterExceptionType.INVALID_URL, "invalid url format: " + url);
+        if (!Bookmark.isUrlValid(url)) {
+            throw new ZoomasterException(ZoomasterExceptionType.INVALID_URL, "invalid url format: " + url + "\n"
+            + "URL must start with either 'www.', 'http://' or 'https://' and have no spaces\n");
         }
         Bookmark bookmark = new Bookmark(lesson, url);
         newSlot.addBookmark(bookmark);
@@ -205,4 +206,5 @@ public class AddSlotCommand extends Command {
         }
         return false;
     }
+
 }
